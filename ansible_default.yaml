@@ -1,0 +1,32 @@
+---
+- name: Example Ansible Playbook
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    # Устанавливаем пакет Vim
+    - name: Install vim package
+      ansible.builtin.apt:
+        name: vim
+        state: present
+
+    # Добавляем пользователя 'newuser'
+    - name: Add user 'newuser'
+      ansible.builtin.user:
+        name: newuser
+        state: present
+        shell: /bin/bash
+
+    # Копируем файл на удалённый хост
+    - name: Copy file to remote host
+      ansible.builtin.copy:
+        src: /path/to/local/file.txt
+        dest: /path/to/remote/file.txt
+
+    # Устанавливаем и запускаем Nginx
+    - name: Install and start nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+      notify:
+        - Start nginx
